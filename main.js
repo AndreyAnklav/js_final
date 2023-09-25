@@ -10,12 +10,13 @@ add.onclick = function(){
   let newTask = document.createElement("div");
   newTask.classList.add("task");
 
-  let taskText = document.createElement("li");
+  let taskText = document.createElement("input");
   taskText.classList.add("task-text");
-  taskText.innerHTML = task;
+    taskText.value = task
+  // taskText.innerHTML = task;
   taskText.ondblclick = () => {
-    taskText.style.textDecoration = "line-through" 
-  }
+    taskText.classList.toggle("textDecor")
+  };
 
   let deleteButton = document.createElement("button");
   deleteButton.innerHTML = "Из листа";
@@ -27,9 +28,13 @@ add.onclick = function(){
   newTask.appendChild(taskText);
   newTask.appendChild(deleteButton);
   toDoList.appendChild(newTask);
+  
+
+let green = document.querySelector(".green")
+let x = document.querySelectorAll(".task")
+// for (let i = 0; i <= x.length; i++)
+green.value = x.length
+console.log(typeof x)
 }
-
-
-    // toDoList.innerHTML += tasks.value + '<br>'
     tasks.value = '';
   }
