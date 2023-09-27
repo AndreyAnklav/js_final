@@ -1,39 +1,50 @@
 let tasks = document.querySelector(".tasks");
 let add = document.querySelector(".add");
 let toDoList = document.querySelector(".toDoList");
-
+let red = document.querySelector(".red"); 
+let green = document.querySelector(".green");
+let firstTask = document.createElement("div");
+  firstTask.classList.add("first-task")
+  firstTask.innerHTML = 'Здесь появится твое первое дело'
+  toDoList.appendChild(firstTask);
 
 add.onclick = function(){
-  if(tasks.value.trim() === ''){
-    alert('Введите значение')
+  if(tasks.value.trim() === '') {
+    alert("Напиши дело, потом тапай!");
   } else {
-  let task = tasks.value;
-  let newTask = document.createElement("div");
-  newTask.classList.add("task");
+    let newTask = document.createElement("div");
+    newTask.classList.add("task");   
+    let taskText = document.createElement("span");
+      taskText.classList.add("task-text");
+      taskText.innerHTML = tasks.value;
+        taskText.onclick = function() {
+          taskText.setAttribute('contentEditable', 'true');
+        };
 
-  let taskText = document.createElement("input");
-  taskText.classList.add("task-text");
-    taskText.value = task
-  // taskText.innerHTML = task;
-  taskText.ondblclick = () => {
-    taskText.classList.toggle("textDecor")
-  };
-
-  let green = document.querySelector(".green");
-  let x = Array.from(document.querySelectorAll(".task"));
-      green.value = x.length+1
-  let deleteButton = document.createElement("button");
-  deleteButton.innerHTML = "Из листа";
-  deleteButton.classList.add("delBut");
-  deleteButton.onclick = () => {
-    toDoList.removeChild(newTask);
-    green.value = x.length
-  };
-
-  newTask.appendChild(taskText);
-  newTask.appendChild(deleteButton);
-  toDoList.appendChild(newTask);
-  
-}
+    let deleteButton = document.createElement("button");
+      deleteButton.innerHTML = "Удалить";
+      deleteButton.classList.add("delBut");
+        taskText.ondblclick = () => {
+          taskText.classList.toggle("textDecor");
+          red.innerHTML = document.querySelectorAll(".textDecor").length;
+        };
+      
+        deleteButton.onclick = () => {
+          toDoList.removeChild(newTask);
+          red.innerHTML = document.querySelectorAll(".textDecor").length;
+          green.innerHTML = document.querySelectorAll(".task").length;
+        };
+        // if(document.querySelectorAll(".task").length = 0){
+        //   toDoList.appendChild(firstTask)
+        // }
+    newTask.appendChild(taskText);
+    newTask.appendChild(deleteButton);
+    toDoList.appendChild(newTask);
+     
+    green.innerHTML = document.querySelectorAll(".task").length;
     tasks.value = '';
-  }
+    toDoList.replaceChild(newTask, firstTask);
+  
+  };
+
+}
